@@ -3,20 +3,13 @@
 //
 
 #include "SDLWindow.h"
-
-SDLWindow::SDLWindow()
-{
-}
+#include "Camera.h"
 
 SDLWindow::SDLWindow(GLuint windowWidth, GLuint windowHeight)
 {
     width = windowWidth;
     height = windowHeight;
 
-    for (bool& key : keys)
-    {
-        key = false;
-    }
 }
 
 int SDLWindow::Initialise()
@@ -66,10 +59,21 @@ int SDLWindow::Initialise()
 
     glViewport(0,0, width, height);
 
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+
     return 0;
 }
 
 void SDLWindow::move(float x, float y)
+{
+}
+
+void SDLWindow::SwapWindow()
+{
+    SDL_GL_SwapWindow(window);
+}
+
+void SDLWindow::UpdateWindow()
 {
 }
 

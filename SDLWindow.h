@@ -4,13 +4,17 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
+
 #include <SDL.h>
 #include <glad/glad.h>
+
+#include "Camera.h"
 
 class SDLWindow
 {
 public:
-    SDLWindow();
+    SDLWindow() = default;
     SDLWindow(GLuint windowWidth, GLuint windowHeight);
 
     int Initialise();
@@ -21,7 +25,8 @@ public:
     [[nodiscard]] SDL_GLContext GetSDLContext() const { return context; }
     void move(float x, float y);
 
-    void SwapWindow() const { SDL_GL_SwapWindow(window); }
+    void SwapWindow();
+    void UpdateWindow();
 
     void Destroy();
     ~SDLWindow();
@@ -32,5 +37,11 @@ protected:
     SDL_Window* window = nullptr;
     SDL_GLContext context = nullptr;
 
-    bool keys[1024];
+    GLfloat lastX =0.f;
+    GLfloat lastY=0.f;
+    GLfloat xChange=0.f;
+    GLfloat yChange=0.f;
+
+    bool mouseFirstMoved = false;
+    bool holdMouseInCenter = false;
 };
