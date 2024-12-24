@@ -31,13 +31,14 @@ add_executable(sdl_template_cmake main.cpp
         Camera.h
         Texture.cpp
         Texture.h
-        thirdParty/stb/stb_image.h
         Light.cpp
         Light.h
         Material.cpp
         Material.h
         PointLight.cpp
         PointLight.h
+        ErrorReportingGPU.cpp
+        ErrorReportingGPU.h
 )
 
 target_link_libraries(sdl_template_cmake PUBLIC

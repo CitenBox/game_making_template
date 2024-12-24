@@ -16,6 +16,8 @@
 #include "Texture.h"
 #include "Light.h"
 #include "Material.h"
+#include "ErrorReportingGPU.h"
+#include "DirectionalLight.h"
 
 
 using namespace std;
@@ -34,7 +36,7 @@ Texture dirtTexture;
 Material shinyMaterial;
 Material dullMaterial;
 
-Light mainLight;
+DirectionalLight mainLight;
 
 double deltaTime = 0.0f;
 uint64_t lastTime = 0.0f;
@@ -64,8 +66,9 @@ void InitializeProgram()
         cout << "SDLWindow initialisation failed!\n";
         CleanUp();
     }
-
     GetOpenGLVersionInfo();
+
+    enableReportGlErrors();
 
     CreateObjects();
     CreateShaders();
@@ -80,7 +83,7 @@ void InitializeProgram()
     shinyMaterial = Material(1.f, 32);
     dullMaterial = Material(0.3f, 4);
 
-    mainLight = Light(glm::vec3(1.f), 0.5f,
+    mainLight = DirectionalLight(glm::vec3(1.f), 0.5f,
          0.3f, glm::vec3(2.f, -1.f, -2.f));
 
     projection = glm::perspective(45.f, (GLfloat)mainWindow.GetWidth()/mainWindow.GetHeight(), 0.1f, 100.f);
