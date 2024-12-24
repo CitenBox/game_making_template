@@ -101,7 +101,7 @@ void Draw()
     uniformAmbientIntensity = 0, uniformAmbientColor = 0, uniformDirection = 0, uniformDiffuseIntensity = 0,
     uniformSpecularIntensity = 0, uniformShininess = 0;
 
-    if (shaderList[0] != nullptr)
+    if (shaderList[0])
     {
         [[likely]]
         shaderList[0]->UseShader();
@@ -109,12 +109,14 @@ void Draw()
         uniformProjection = shaderList[0]->GetProjectionLocation();
         uniformView = shaderList[0]->GetViewLocation();
         uniformAmbientIntensity = shaderList[0]->GetAmbientIntensityLocation();
-        uniformAmbientColor = shaderList[0]->GetAmbientColorLocation();
+        uniformAmbientColor = shaderList[0]->GetColorLocation();
         uniformDirection = shaderList[0]->GetDirectionLocation();
         uniformDiffuseIntensity = shaderList[0]->GetDiffuseIntensityLocation();
         uniformEyePosition = shaderList[0]->GetEyePositionLocation();
         uniformSpecularIntensity = shaderList[0]->GetSpecularIntensityLocation();
         uniformShininess = shaderList[0]->GetShininessLocation();
+
+        shaderList[0]->SetDirectionalLight(&mainLight);
     }
 
     mainLight.UseLight(uniformAmbientIntensity, uniformAmbientColor,
@@ -132,7 +134,7 @@ void Draw()
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, value_ptr(model));
     dirtTexture.UseTexture();
     dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-    if (meshList[0] != nullptr)
+    if (meshList[0])
     {
         [[likely]]
         meshList[0]->RenderMesh();
@@ -144,7 +146,7 @@ void Draw()
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, value_ptr(model));
     brickTexture.UseTexture();
     shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-    if (meshList[1] != nullptr)
+    if (meshList[1])
     {
         [[likely]]
         meshList[1]->RenderMesh();

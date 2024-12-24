@@ -9,7 +9,7 @@
 class Shader
 {
 public:
-    Shader() = default;
+    explicit Shader() = default;
     ~Shader();
 
     void CreateFromString(const std::string& vertexCode, const std::string& fragmentCode);
@@ -22,20 +22,32 @@ public:
     [[nodiscard]] GLint GetProjectionLocation() const {  return uniformProjection; }
     [[nodiscard]] GLint GetModelLocation() const {  return uniformModel; }
     [[nodiscard]] GLint GetViewLocation() const {  return uniformView; }
-    [[nodiscard]] GLint GetAmbientIntensityLocation() const {  return uniformAmbientIntensity; }
-    [[nodiscard]] GLint GetAmbientColorLocation() const {  return uniformAmbientColor; }
-    [[nodiscard]] GLint GetDiffuseIntensityLocation() const {  return uniformDiffuseIntensity; }
-    [[nodiscard]] GLint GetDirectionLocation() const {  return uniformDirection; }
+    [[nodiscard]] GLint GetAmbientIntensityLocation() const {  return uniformDirectionalLight.uniformAmbientIntensity; }
+    [[nodiscard]] GLint GetColorLocation() const {  return uniformDirectionalLight.uniformColor; }
+    [[nodiscard]] GLint GetDiffuseIntensityLocation() const {  return uniformDirectionalLight.uniformDiffuseIntensity; }
+    [[nodiscard]] GLint GetDirectionLocation() const {  return uniformDirectionalLight.uniformDirection; }
     [[nodiscard]] GLint GetSpecularIntensityLocation() const {  return uniformSpecularIntensity; }
     [[nodiscard]] GLint GetShininessLocation() const {  return uniformShininess; }
     [[nodiscard]] GLint GetEyePositionLocation() const {  return uniformEyePosition; }
 
+    void SetDirectionalLight(class DirectionalLight *directionalLight) const;
 
 protected:
+    unsigned pointLightCount;
+
     GLuint shaderID;
     GLint uniformProjection, uniformModel, uniformView, uniformEyePosition,
-    uniformAmbientIntensity, uniformAmbientColor, uniformDiffuseIntensity, uniformDirection,
     uniformSpecularIntensity, uniformShininess;
+
+    struct
+    {
+        GLint uniformColor;
+        GLint uniformAmbientIntensity;
+        GLint uniformDiffuseIntensity;
+
+        GLint uniformDirection;
+
+    } uniformDirectionalLight;
 
     void CompileShader(const char* vertexCode, const char* fragmentCode);
     void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType);

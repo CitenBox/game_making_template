@@ -8,7 +8,7 @@
 #include <cstring>
 #include <fstream>
 
-
+#include "DirectionalLight.h"
 
 
 Shader::~Shader()
@@ -66,6 +66,16 @@ void Shader::ClearShader()
 }
 
 
+void Shader::SetDirectionalLight(class DirectionalLight *directionalLight) const
+{
+    directionalLight->UseLight(
+        uniformDirectionalLight.uniformAmbientIntensity,
+        uniformDirectionalLight.uniformColor,
+        uniformDirectionalLight.uniformDiffuseIntensity,
+        uniformDirectionalLight.uniformDirection
+        );
+}
+
 void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 {
     shaderID = glCreateProgram();
@@ -103,10 +113,10 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
     uniformModel = glGetUniformLocation(shaderID, "model");
     uniformProjection = glGetUniformLocation(shaderID, "projection");
     uniformView = glGetUniformLocation(shaderID, "view");
-    uniformAmbientColor = glGetUniformLocation(shaderID, "directionalLight.color");
-    uniformAmbientIntensity = glGetUniformLocation(shaderID, "directionalLight.ambientIntensity");
-    uniformDirection = glGetUniformLocation(shaderID, "directionalLight.direction");
-    uniformDiffuseIntensity = glGetUniformLocation(shaderID, "directionalLight.diffuseIntensity");
+    uniformDirectionalLight.uniformColor = glGetUniformLocation(shaderID, "directionalLight.color");
+    uniformDirectionalLight.uniformAmbientIntensity = glGetUniformLocation(shaderID, "directionalLight.ambientIntensity");
+    uniformDirectionalLight.uniformDirection = glGetUniformLocation(shaderID, "directionalLight.direction");
+    uniformDirectionalLight.uniformDiffuseIntensity = glGetUniformLocation(shaderID, "directionalLight.diffuseIntensity");
     uniformSpecularIntensity = glGetUniformLocation(shaderID, "material.specularIntensity");
     uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
     uniformEyePosition = glGetUniformLocation(shaderID, "eyePosition");
