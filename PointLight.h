@@ -13,9 +13,9 @@ public:
  		Light(rgb, ambientIntensity, diffuseIntensity), position(position), constant(constant),
   		linear(linear), exponent(exponent){}
 
-	void UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation,
-		GLfloat diffuseIntensityLocation, GLfloat positionLocation,
-		GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation);
+	void UseLight(GLint ambientIntensityLocation, GLint ambientColourLocation,
+		GLint diffuseIntensityLocation, GLint positionLocation,
+		GLint constantLocation, GLint linearLocation, GLint exponentLocation);
 
 	~PointLight() = default;
 

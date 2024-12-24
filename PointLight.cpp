@@ -3,9 +3,9 @@
 
 
 
-void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation, 
-							GLfloat diffuseIntensityLocation, GLfloat positionLocation, 
-							GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation)
+void PointLight::UseLight(GLint ambientIntensityLocation, GLint ambientColourLocation,
+							GLint diffuseIntensityLocation, GLint positionLocation,
+							GLint constantLocation, GLint linearLocation, GLint exponentLocation)
 {
 	glUniform3f(ambientColourLocation, color.x, color.y, color.z);
 	glUniform1f(ambientIntensityLocation, ambientIntensity);

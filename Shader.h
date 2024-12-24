@@ -5,6 +5,7 @@
 
 #include <glad/glad.h>
 #include <string>
+#include "CommonValues.h"
 
 class Shader
 {
@@ -31,9 +32,10 @@ public:
     [[nodiscard]] GLint GetEyePositionLocation() const {  return uniformEyePosition; }
 
     void SetDirectionalLight(class DirectionalLight *directionalLight) const;
+    void SetPointLights(class PointLight *pointLights, unsigned lightCount);
 
 protected:
-    unsigned pointLightCount;
+    unsigned pointLightCount = 0;
 
     GLuint shaderID;
     GLint uniformProjection, uniformModel, uniformView, uniformEyePosition,
@@ -48,6 +50,21 @@ protected:
         GLint uniformDirection;
 
     } uniformDirectionalLight;
+
+    GLint uniformPointLightCount;
+
+    struct
+    {
+        GLint uniformColor;
+        GLint uniformAmbientIntensity;
+        GLint uniformDiffuseIntensity;
+
+        GLint uniformPosition;
+        GLint uniformConstant;
+        GLint uniformLinear;
+        GLint uniformExponent;
+
+    } uniformPointLights[MAX_POINT_LIGHTS];
 
     void CompileShader(const char* vertexCode, const char* fragmentCode);
     void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType);
