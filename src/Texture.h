@@ -12,10 +12,11 @@ class Texture
 {
 public:
     Texture() = default;
-    Texture(const std::string& fileLocation): fileLocation(fileLocation){}
+    explicit Texture(const std::string& fileLocation): fileLocation(fileLocation){}
     ~Texture();
 
-    void LoadTexture();
+    bool LoadTexture();
+    bool LoadTextureA();
     void UseTexture();
     void ClearTexture();
 

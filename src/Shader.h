@@ -33,9 +33,11 @@ public:
 
     void SetDirectionalLight(class DirectionalLight *directionalLight) const;
     void SetPointLights(class PointLight *pointLights, unsigned lightCount);
+    void SetSpotLights(class SpotLight *spotLights, unsigned lightCount);
 
 protected:
     unsigned pointLightCount = 0;
+    unsigned spotLightCount = 0;
 
     GLuint shaderID;
     GLint uniformProjection, uniformModel, uniformView, uniformEyePosition,
@@ -65,6 +67,23 @@ protected:
         GLint uniformExponent;
 
     } uniformPointLights[MAX_POINT_LIGHTS];
+
+    GLint uniformSpotLightCount;
+
+    struct
+    {
+        GLint uniformColor;
+        GLint uniformAmbientIntensity;
+        GLint uniformDiffuseIntensity;
+
+        GLint uniformPosition;
+        GLint uniformConstant;
+        GLint uniformLinear;
+        GLint uniformExponent;
+
+        GLint uniformDirection;
+        GLint uniformEdge;
+    } uniformSpotLights[MAX_SPOT_LIGHTS];
 
     void CompileShader(const char* vertexCode, const char* fragmentCode);
     void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType);
